@@ -1,3 +1,5 @@
+@props(['job'])
+
 <x-panel class="flex gap-x-6">
 
     <div>
@@ -5,15 +7,15 @@
     </div>
 
     <div class="flex-1 flex flex-col">
-        <a href="#" class="self-start text-sm text-gray-400">Laracasts</a>
-        <h3 class="font-bold text-xl mt-3 group-hover:text-blue-800 transition-colors duration-300">Video Producer</h3>
-        <p class="text-sm text-gray-400 mt-auto">Full Time - From $60,000</p>
+        <a href="#" class="self-start text-sm text-gray-400">{{ $job->employer->name }}</a>
+        <h3 class="font-bold text-xl mt-3 group-hover:text-blue-800 transition-colors duration-300">{{ $job->title }}</h3>
+        <p class="text-sm text-gray-400 mt-auto">{{ $job->schedule }} - {{ $job->salary }}</p>
     </div>
 
     <div class="">
-            <x-tag>Tag 1</x-tag>
-            <x-tag>Tag 2</x-tag>
-            <x-tag>Tag 3</x-tag>
+        @foreach ($job->tags as $tag)
+            <x-tag :$tag />
+        @endforeach
     </div>
 
 </x-panel>
