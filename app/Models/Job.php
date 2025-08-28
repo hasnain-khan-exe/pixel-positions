@@ -10,13 +10,15 @@ class Job extends Model
     /** @use HasFactory<\Database\Factories\JobFactory> */
     use HasFactory;
 
-    public function employer(){
+    public function employer()
+    {
         return $this->belongsTo(Employer::class);
     }
-    
-        public function tags(){
-            return $this->belongsToMany(Tag::class);
-        }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
 
     public function tag(string $name): void
     {
@@ -24,5 +26,4 @@ class Job extends Model
         $this->tags()->attach($tag);
         // $this->tags()->attach($tag);
     }
-
 }
