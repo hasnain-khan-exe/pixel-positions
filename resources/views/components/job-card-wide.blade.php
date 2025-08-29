@@ -1,57 +1,40 @@
 @props(['job'])
-@if ($job->featured)
 
-    <x-panel class="flex gap-x-6 relative border-2 border-yellow-400">
-        <div>
-            <span class="absolute top-0 right-0 bg-yellow-400 text-white text-xs font-bold px-3 py-1 rounded-bl-xl">
-                Featured
-            </span>
-    
-            <div>
-                <x-employer-logo :employer="$job->employer" />
-            </div>
-        </div>
+<x-panel class="flex items-center gap-x-6 relative">
 
-        <div class="flex-1 flex flex-col>
-            <a href="#" class="self-start text-sm text-gray-400">{{ $job->employer->name }}</a>
-            <h3 class="font-bold text-xl mt-3 group-hover:text-blue-800 transition-colors duration-300">
-                <a href="{{ $job->url }}" target="_blank">
-                    {{ $job->title }}
-                </a>
-            </h3>
-            <p class="text-sm text-gray-400 mt-auto">{{ $job->schedule }} - {{ $job->salary }}</p>
-        </div>
+    {{-- Featured Badge --}}
+    @if ($job->featured)
+        <span class="absolute top-0 right-0 bg-yellow-400 text-white text-xs font-bold px-3 py-1 rounded-bl-xl">
+            Featured
+        </span>
+    @endif
 
-        <div>
+    {{-- Employer Logo --}}
+    <div class="flex-shrink-0 self-start">
+        <x-employer-logo :employer="$job->employer" class="w-14 h-14 rounded-xl" />
+    </div>
+
+    {{-- Job Info --}}
+    <div class="flex-1 flex flex-col">
+        {{-- Employer Name --}}
+        <a href="#" class="text-sm text-gray-400">{{ $job->employer->name }}</a>
+
+        {{-- Job Title --}}
+        <h3 class="font-bold text-xl mt-1 group-hover:text-blue-800 transition-colors duration-300">
+            <a href="{{ $job->url }}" target="_blank">
+                {{ $job->title }}
+            </a>
+        </h3>
+
+        {{-- Schedule + Salary --}}
+        <p class="text-sm text-gray-500 mt-2">{{ $job->schedule }} - {{ $job->salary }}</p>
+
+        {{-- Tags --}}
+        <div class="flex flex-wrap gap-2 mt-3">
             @foreach ($job->tags as $tag)
                 <x-tag :$tag />
             @endforeach
         </div>
+    </div>
 
-    </x-panel>
-@else
-    
-    <x-panel class="flex gap-x-6">
-
-        <div>
-            <x-employer-logo :employer="$job->employer" />
-        </div>
-
-        <div class="flex-1 flex flex-col">
-            <a href="#" class="self-start text-sm text-gray-400">{{ $job->employer->name }}</a>
-            <h3 class="font-bold text-xl mt-3 group-hover:text-blue-800 transition-colors duration-300">
-                <a href="{{ $job->url }}" target="_blank">
-                    {{ $job->title }}
-                </a>
-            </h3>
-            <p class="text-sm text-gray-400 mt-auto">{{ $job->schedule }} - {{ $job->salary }}</p>
-        </div>
-
-        <div>
-            @foreach ($job->tags as $tag)
-                <x-tag :$tag />
-            @endforeach
-        </div>
-
-    </x-panel>
-@endif
+</x-panel>
