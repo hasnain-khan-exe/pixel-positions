@@ -7,8 +7,8 @@
         <x-forms.input label="Location" name="location" placeholder="Winter Park, Florida" />
 
         <x-forms.select label="Schedule" name="schedule">
-            <option>Part Time</option>
-            <option>Full Time</option>
+            <option class= 'text-sm text-gray-700 font-bold'>Part Time</option>
+            <option class='text-sm text-gray-700  font-bold'>Full Time</option>
         </x-forms.select>
 
         <x-forms.input label="URL" name="url" placeholder="https://acme.com/jobs/ceo-wanted" />

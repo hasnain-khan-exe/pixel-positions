@@ -10,8 +10,9 @@
         $classes .= ' px-3 py-1 text-[10px]';
     }
 
+
 @endphp
 
 <a class="{{ $classes }}"
-    href="/tags/{{ strtolower($tag->name) }}">{{ $tag->name }}
+   href="/tags/{{ strtolower($tag->name) }}">{{ $tag->name }}
 </a>

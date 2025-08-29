@@ -25,6 +25,14 @@ class JobController extends Controller
             'tags' => Tag::all()
         ]);
     }
+    public function allJobsView()
+    {
+            $jobs = Job::latest()->with(['employer', 'tags'])->get()->shuffle();
+        return view('jobs.all-jobs', [
+            'jobs' => $jobs,
+            'tags' => Tag::all()
+        ]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -42,13 +50,13 @@ class JobController extends Controller
             'title' => 'required',
             'salary' => 'required',
             'location' => 'required',
-            'schedule' => ['required', Rule::in(['Full Time', 'Part Time'])],
+            'schedule' => 'required| ' . Rule::in(['Full Time', 'Part Time']),
             'url' => 'required|active_url',
             'tags' => 'nullable',
         ]);
 
         $attributes['featured'] = $request->has('featured');
-        $job= Auth::user()->employer->jobs()->create([Arr::except($attributes, 'tags')]);
+        $job= Auth::user()->employer->jobs()->create(Arr::except($attributes, 'tags'));
 
         if ($attributes['tags'] ?? false) {
             foreach (explode(',', $attributes['tags']) as $tag) {

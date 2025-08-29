@@ -1,3 +1,12 @@
-@props(['employer', 'width'=>90])
+@props(['employer', 'width' => 90])
 
-<img src="{{ asset($employer->logo) }}" alt="" class="rounded-xl" width="{{ $width }}">
+@php
+    
+    $isFactoryLogo = Str::startsWith($employer->logo, ['http://', 'https://']);
+
+    $logoPath = $isFactoryLogo
+        ? $employer->logo
+        : asset('storage/' . $employer->logo);
+@endphp
+
+<img src="{{ $logoPath }}" alt="Employer Logo" class="rounded-full object-cover" style="width: {{ $width }}px; height: {{ $width }}px;">

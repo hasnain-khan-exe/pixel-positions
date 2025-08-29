@@ -19,7 +19,7 @@ class EmployerFactory extends Factory
     {
         return [
             'name' =>   fake()->company(),
-            'logo' => "https://avatar.iran.liara.run/public/" .  $this->faker->unique()->numberBetween(1, 100),
+            'logo' => "https://avatar.iran.liara.run/public/" .  $this->faker->numberBetween(1, 100),
             'user_id' => User::factory(),
         ];
     }

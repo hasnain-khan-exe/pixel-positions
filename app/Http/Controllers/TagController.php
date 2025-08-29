@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
+use function Psy\sh;
+
 class TagController extends Controller
 {
-     public function __invoke(Tag $tag)
+     public function __invoke($name)
     {
-        //
-
-        return view('results', ['jobs' => $tag->jobs]);
+        $tag = Tag::where('name','LIKE', "%$name%")->firstOrFail();
+        return view('results', ['jobs' => $tag->jobs->shuffle()]);
     }
 }

@@ -25,7 +25,7 @@
                 </div>
 
                 <div class="space-x-6 font-bold">
-                    <a href="">Jobs</a>
+                    <a href="/jobs/all-jobs">Jobs</a>
                     <a href="">Careers</a>
                     <a href="">Salaries</a>
                     <a href="">Componies</a>
