@@ -27,7 +27,7 @@ class JobController extends Controller
     }
     public function allJobsView()
     {
-            $jobs = Job::latest()->with(['employer', 'tags'])->get()->shuffle();
+            $jobs = Job::with(['employer', 'tags'])->latest()->paginate(6);
         return view('jobs.all-jobs', [
             'jobs' => $jobs,
             'tags' => Tag::all()
@@ -53,6 +53,7 @@ class JobController extends Controller
             'schedule' => 'required| ' . Rule::in(['Full Time', 'Part Time']),
             'url' => 'required|active_url',
             'tags' => 'nullable',
+            'expiry' => 'required|date'
         ]);
 
         $attributes['featured'] = $request->has('featured');

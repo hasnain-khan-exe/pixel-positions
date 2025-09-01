@@ -29,5 +29,9 @@
             </div>
         </section>
 
+        <div class="mt-6 p-4">
+            {{ $jobs->links() }}    
+        </div>
+
     </div>
 </x-layout>

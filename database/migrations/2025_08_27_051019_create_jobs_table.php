@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('schedule')->default('Full time');
             $table->string('url');
             $table->string('featured')->default(false);
+            $table->timestamp('expiry');
             $table->timestamps();
         });
     }

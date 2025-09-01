@@ -9,7 +9,7 @@ use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [JobController::class, 'index']);
-Route::get('/jobs/all-jobs', [JobController::class, 'allJobsView']);
+Route::get('/jobs', [JobController::class, 'allJobsView']);
 Route::get('/jobs/create', [JobController::class, 'create'])->middleware('auth');
 Route::post('/jobs', [JobController::class, 'store'])->middleware('auth');
 

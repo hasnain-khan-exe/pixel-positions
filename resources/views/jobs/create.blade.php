@@ -13,6 +13,7 @@
 
         <x-forms.input label="URL" name="url" placeholder="https://acme.com/jobs/ceo-wanted" />
         <x-forms.checkbox label="Feature (Costs Extra)" name="featured" />
+        <x-forms.input label="Expiry Date" name="expiry" type="date" />
 
         <x-forms.divider />
 

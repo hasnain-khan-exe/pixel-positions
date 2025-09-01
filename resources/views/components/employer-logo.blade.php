@@ -1,4 +1,4 @@
-@props(['employer', 'width' => 90])
+@props(['employer', 'width' => 80])
 
 @php
     
