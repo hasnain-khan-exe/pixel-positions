@@ -9,11 +9,12 @@ class SearchController extends Controller
 {
     public function __invoke()
     {
-        dd(Job::find(202));
+        $query = trim(strtolower(request()->query('q')));
         $jobs = Job::query()
             ->with(['employer', 'tags'])
-            ->where('title', 'LIKE', '%'.request('q').'%')
-            ->get();
+            ->whereRaw('LOWER(title) LIKE ?', ["%$query%"])
+            ->inRandomOrder()
+            ->paginate(10);
 
         return view('results', ['jobs' => $jobs]);
     }

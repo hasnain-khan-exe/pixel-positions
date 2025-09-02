@@ -20,4 +20,10 @@
 
         <x-forms.button>Create Account</x-forms.button>
     </x-forms.form>
+
+    <p class="mt-4 text-center text-sm text-gray-600">
+        Already have an account?
+        <a href="/login" class="text-blue-600 hover:underline">Log in</a>
+    </p>
+    
 </x-layout>

@@ -4,8 +4,8 @@
 
 
     @if ($job->featured)
-        <span class="absolute top-0 right-0 bg-yellow-400 text-white text-xs font-bold px-3 py-1 rounded-bl-xl">
-            Featured
+        <span class="absolute top-0 right-0 bg-red-900 text-white text-xs font-bold px-3 py-1 rounded-bl-xl rounded-tr-xl">
+            Hot Job 🔥
         </span>
     @endif
 
@@ -24,15 +24,9 @@
             <p class="text-sm text-gray-500 mt-2">{{ $job->schedule }} - {{ $job->salary }}</p>
             <div class="flex flex-col">
                 <p class="text-sm text-gray-500 mt-2"><span class="space-x-1">Published -</span>
-                    {{ date('d/m/y', strtotime($job->created_at)) }}</p>
-                @if (now()->greaterThan($job->expiry))
-                    <span class="text-red-500 font-bold">
-                        This job is no longer available.
-                    </span>
-                @else
-                    <p class="text-sm font-bold text-white-10 mt-2"><span class="space-x-1">Last Date -</span>
-                        {{ date('d/m/y', strtotime($job->expiry)) }}</p>
-                @endif
+                    {{ date('d/m/Y', strtotime($job->created_at)) }}</p>
+                <p class="text-sm font-bold text-white-10 mt-2"><span class="space-x-1">Last Date -</span>
+                    {{ date('d/m/Y', strtotime($job->expired_at)) }}</p>
             </div>
         </div>
 
@@ -44,9 +38,10 @@
         <div class="w-full">
             <form method="POST" action="" class="w-full flex mt-2 justify-end">
                 @csrf
-               <x-forms.button
-                    class="{{ !now()->greaterThan($job->expiry) ? 'cursor-pointer' : 'disable opacity-70 pointer-events-none' }}">Apply
-                </x-forms.button>
+                <x-forms.button class="cursor-pointer">Apply</x-forms.button>
+                {{-- <x-forms.button
+                    class="{{ !now()->greaterThan($job->expired_at) ? 'cursor-pointer' : 'disable opacity-70 pointer-events-none' }}">Apply
+                </x-forms.button> --}}
             </form>
         </div>
     </div>

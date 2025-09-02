@@ -9,9 +9,15 @@ use function Psy\sh;
 
 class TagController extends Controller
 {
-     public function __invoke($name)
+    public function __invoke($name)
     {
-        $tag = Tag::where('name','LIKE', "%$name%")->firstOrFail();
-        return view('results', ['jobs' => $tag->jobs->shuffle()]);
+        $tag = Tag::where('name', 'LIKE', "%$name%")->firstOrFail();
+
+        $jobs = $tag->jobs()
+            ->with(['employer', 'tags'])
+            ->inRandomOrder()
+            ->paginate(10);
+
+        return view('results', ['jobs' => $jobs]);
     }
 }

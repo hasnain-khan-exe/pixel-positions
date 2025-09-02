@@ -18,16 +18,20 @@ class JobController extends Controller
      */
     public function index()
     {
-        $jobs = Job::latest()->with(['employer', 'tags'])->get()->groupBy('featured');
+        $featuredJobs = Job::latest()
+        ->with(['employer', 'tags'])
+        ->where('expired_at','>', now())
+        ->where('featured', true)
+        ->get();
+        
         return view('jobs.index', [
-            'jobs' => $jobs[0],
-            'featuredJobs' => $jobs[1],
+            'featuredJobs' => $featuredJobs,
             'tags' => Tag::all()
         ]);
     }
     public function allJobsView()
     {
-            $jobs = Job::with(['employer', 'tags'])->latest()->paginate(6);
+        $jobs = Job::with(['employer', 'tags'])->where('expired_at','>', now())->inRandomOrder()->paginate(6);
         return view('jobs.all-jobs', [
             'jobs' => $jobs,
             'tags' => Tag::all()
@@ -53,11 +57,11 @@ class JobController extends Controller
             'schedule' => 'required| ' . Rule::in(['Full Time', 'Part Time']),
             'url' => 'required|active_url',
             'tags' => 'nullable',
-            'expiry' => 'required|date'
+            'expired_at' => 'required|date|after:today',
         ]);
 
         $attributes['featured'] = $request->has('featured');
-        $job= Auth::user()->employer->jobs()->create(Arr::except($attributes, 'tags'));
+        $job = Auth::user()->employer->jobs()->create(Arr::except($attributes, 'tags'));
 
         if ($attributes['tags'] ?? false) {
             foreach (explode(',', $attributes['tags']) as $tag) {

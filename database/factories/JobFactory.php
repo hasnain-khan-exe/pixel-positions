@@ -17,6 +17,7 @@ class JobFactory extends Factory
      */
     public function definition(): array
     {
+        $createdAt = fake()->dateTimeBetween('-1 month', 'now');
         return [
             'employer_id' => Employer::factory(),
             'title' => fake()->jobTitle(),
@@ -25,7 +26,9 @@ class JobFactory extends Factory
             'schedule' => 'Full time',
             'url' => fake()->url,
             'featured' => false,
-            'expiry' => fake()->dateTime(now()->addWeek()),
+            'created_at' => $createdAt,
+            'updated_at' => $createdAt,
+            'expired_at' => (clone $createdAt)->modify('+2 weeks'),
 
         ];
     }

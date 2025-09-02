@@ -21,14 +21,22 @@ class RegisteredUserController extends Controller
             'name' => ['required'],
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required', 'confirmed', Password::min(6)],
+            'user_type' => ['required', 'in:employee,employer'],
         ]);
 
+        // $employerAttributes = $request->validate([
+        //     'employer' => ['required'],
+        //     'logo' => ['required', File::types(['png', 'jpg', 'webp'])],
+        // ]);
+
+        $user = User::create($userAttributes);
+
+        if ($userAttributes['user_type'] === 'employer') {
         $employerAttributes = $request->validate([
             'employer' => ['required'],
             'logo' => ['required', File::types(['png', 'jpg', 'webp'])],
         ]);
 
-        $user = User::create($userAttributes);
 
         $logoPath = $request->logo->store('logos');
 
@@ -36,6 +44,12 @@ class RegisteredUserController extends Controller
             'name' => $employerAttributes['employer'],
             'logo' => $logoPath,
         ]);
+    }
+
+        // $user->employer()->create([
+        //     'name' => $employerAttributes['employer'],
+        //     'logo' => $logoPath,
+        // ]);
 
         Auth::login($user);
 

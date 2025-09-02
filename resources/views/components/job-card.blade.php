@@ -14,15 +14,19 @@
         </h3>
         <p class="text-sm mt-2">{{$job->schedule}} - {{ $job->salary }}</p>
         <p class="text-sm">Published: {{ date('d-m-Y', strtotime($job->created_at)) }}</p>
-       <p class="text-sm pb-2 border-b border-white/10">
-    @if (now()->greaterThan($job->expiry))
-        <span class="text-red-500 font-bold">
-            This job is no longer available.
-        </span>
-    @else
-        Last Date: <span class="text-blue-200">{{ date('d-m-Y',strtotime($job->expiry)) }}</span>
-    @endif
-</p>
+        <p class="text-sm pb-2 border-b border-white/10">
+            Last Date: 
+            <span class="text-blue-200">{{ date('d-m-Y', strtotime($job->expired_at)) }}</span>
+        </p>
+        {{-- <p class="text-sm pb-2 border-b border-white/10">
+            @if (now()->greaterThan($job->expired_at))
+                <span class="text-red-500 font-bold">
+                    This job is no longer available.
+                </span>
+            @else
+                Last Date: <span class="text-blue-200">{{ date('d-m-Y', strtotime($job->expired_at)) }}</span>
+            @endif
+        </p> --}}
     </div>
 
     <div class=" flex justify-center items-center flex-wrap gap-1 pb-2 border-b border-white/10">
@@ -37,12 +41,12 @@
     </div>
     <x-forms.form method="POST" action="" class="w-full mt-auto">
         @csrf
+        
         <div class="flex mt-4 justify-end">
             @csrf
-             <x-forms.button
-                    class="{{ !now()->greaterThan($job->expiry) ? 'cursor-pointer' : 'disable opacity-70 pointer-events-none' }}">Apply
-                </x-forms.button>
+            <x-forms.button class="cursor-pointer">Apply</x-forms.button>
         </div>
+
     </x-forms.form>
     <script>
         document.getElementById('see_more_{{ $job->id }}')?.addEventListener('click', function () {

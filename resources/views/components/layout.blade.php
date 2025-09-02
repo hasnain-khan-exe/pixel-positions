@@ -31,16 +31,28 @@
                     <a href="">Componies</a>
                 </div>
 
-                @auth
-                    <div class="space-x-6 font-bold flex">
-                        <a href="/jobs/create">Post a Job</a>
-
+                @auth()
+    
+                @if(auth()->user()->isEmployee()) 
+                <div class="space-x-6 font-bold flex">
                         <form action="/logout" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button>Log Out</button>
+                            <button class="cursor-pointer">Log Out</button>
                         </form>
                     </div>
+                @endif
+                @if (auth()->user()->isEmployer())
+                    <div class="space-x-6 font-bold flex">
+                        <a href="/jobs/create">Post a New Job</a>
+                        <form action="/logout" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="cursor-pointer">Log Out</button>
+                        </form>
+                    </div>
+                @endif
+
                 @endauth
 
                 @guest
