@@ -26,6 +26,9 @@ class SessionController extends Controller
         }
 
         request()->session()->regenerate();
+        if(request()->user()->user_type === 'employer'){
+            return redirect()->route('dashboard')->with('success', 'Welcome');
+        }
 
         return redirect('/');
     }

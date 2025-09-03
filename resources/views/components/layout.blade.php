@@ -1,3 +1,6 @@
+@props(['maxWidth' => 'max-w-[986px]'])
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,7 +36,7 @@
 
                 @auth()
     
-                @if(auth()->user()->isEmployee()) 
+                @if(auth()->user()->user_type === 'employee') 
                 <div class="space-x-6 font-bold flex">
                         <form action="/logout" method="POST">
                             @csrf
@@ -42,7 +45,7 @@
                         </form>
                     </div>
                 @endif
-                @if (auth()->user()->isEmployer())
+                @if (auth()->user()->user_type === 'employer')
                     <div class="space-x-6 font-bold flex">
                         <a href="/jobs/create">Post a New Job</a>
                         <form action="/logout" method="POST">
@@ -64,7 +67,7 @@
                 @endguest
             </nav>
 
-            <main class="mt-10 max-w-[986px] mx-auto">
+            <main {{ $attributes->merge(['class' => "mt-10 mx-auto $maxWidth"]) }}>
                 {{ $slot }}
             </main>
         </div>

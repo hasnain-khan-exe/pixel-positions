@@ -1,12 +1,12 @@
 @props(['job'])
 
 <x-panel class="flex flex-col text-center self-start min-h-[375px]">
-    <div class="flex items-center justify-between w-full">
-        <div class="self-start text-sm">{{ $job->employer->name }}</div>
+    <div class="flex items-center gap-2 w-full">
         <x-employer-logo :employer="$job->employer" :width="50" :employer="$job->employer" />
+        <div class="self-center text-sm">{{ $job->employer->name }}</div>
     </div>
 
-    <div class="py-4">
+    <div class="py-6">
         <h3
             class="group-hover:text-blue-800 text-xl font-bold transiotion-colors duration-300 pb-2 border-b border-white/10">
             <a href=" {{ $job->url }}" target="_blank">
@@ -30,7 +30,6 @@
     </div>
 
     <div class=" flex justify-center items-center flex-wrap gap-1 pb-2 border-b border-white/10">
-        {{-- Limit to 6 tags, show "see more" if more than 6 --}}
         @foreach ($job->tags as $index => $tag)
             <x-tag size="small" :$tag :class="$index > 6 ? 'hidden extra-tag-'.$job->id : ''" />
         @endforeach

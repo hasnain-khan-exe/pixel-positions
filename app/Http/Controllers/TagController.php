@@ -15,7 +15,6 @@ class TagController extends Controller
 
         $jobs = $tag->jobs()
             ->with(['employer', 'tags'])
-            ->inRandomOrder()
             ->paginate(10);
 
         return view('results', ['jobs' => $jobs]);

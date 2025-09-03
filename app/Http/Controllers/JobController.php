@@ -31,7 +31,7 @@ class JobController extends Controller
     }
     public function allJobsView()
     {
-        $jobs = Job::with(['employer', 'tags'])->where('expired_at','>', now())->inRandomOrder()->paginate(6);
+        $jobs = Job::with(['employer', 'tags'])->where('expired_at','>', now())->paginate(6);
         return view('jobs.all-jobs', [
             'jobs' => $jobs,
             'tags' => Tag::all()
@@ -69,7 +69,7 @@ class JobController extends Controller
             }
         }
 
-        return redirect('/');
+        return redirect()->route('dashboard')->with('success', 'Job Created Successfully!');
     }
 
     /**

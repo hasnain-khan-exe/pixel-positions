@@ -13,7 +13,6 @@ class SearchController extends Controller
         $jobs = Job::query()
             ->with(['employer', 'tags'])
             ->whereRaw('LOWER(title) LIKE ?', ["%$query%"])
-            ->inRandomOrder()
             ->paginate(10);
 
         return view('results', ['jobs' => $jobs]);
