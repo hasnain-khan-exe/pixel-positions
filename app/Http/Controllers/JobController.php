@@ -19,11 +19,11 @@ class JobController extends Controller
     public function index()
     {
         $featuredJobs = Job::latest()
-        ->with(['employer', 'tags'])
-        ->where('expired_at','>', now())
-        ->where('featured', true)
-        ->get();
-        
+            ->with(['employer.user', 'tags'])
+            ->where('expired_at','>', now())
+            ->where('featured', true)
+            ->get();
+
         return view('jobs.index', [
             'featuredJobs' => $featuredJobs,
             'tags' => Tag::all()

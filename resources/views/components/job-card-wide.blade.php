@@ -10,7 +10,7 @@
     @endif
 
     <div class="flex-shrink-0 self-start">
-        <x-employer-logo :employer="$job->employer" class="w-14 h-14 rounded-xl" />
+        <x-avatar :employer="$job->employer" class="w-14 h-14 rounded-xl" />
     </div>
     <div class="flex-1 flex flex-col">
         <a href="#" class="text-sm text-gray-400">{{ $job->employer->name }}</a>

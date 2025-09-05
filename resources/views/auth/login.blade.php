@@ -1,7 +1,7 @@
 <x-layout>
     <x-page-heading>Log In</x-page-heading>
 
-    <x-forms.form method="POST" action="/login">
+    <x-forms.form method="POST" action="/login?type={{ request()->input('type') }}">
         <x-forms.input label="Email" name="email" type="email" />
         <x-forms.input label="Password" name="password" type="password" />
 
@@ -10,6 +10,6 @@
 
     <p class="mt-4 text-center text-sm text-gray-600">
         Don't have an account?
-        <a href="/register" class="text-blue-600 hover:underline">Register</a>
+        <a href="/register?type={{ request()->input('type') }}" class="text-blue-600 hover:underline">Register</a>
 
 </x-layout>

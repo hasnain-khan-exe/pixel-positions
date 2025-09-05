@@ -23,6 +23,7 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required', 'confirmed', Password::min(6)],
             'user_type' => ['required', 'in:employee,employer'],
+            'avatar' => ['required', File::types(['png', 'jpg', 'webp'])],
         ]);
 
         // $employerAttributes = $request->validate([
@@ -30,29 +31,38 @@ class RegisteredUserController extends Controller
         //     'logo' => ['required', File::types(['png', 'jpg', 'webp'])],
         // ]);
 
-        $user = User::create($userAttributes);
+        $logoPath = $request->avatar->store('logos');
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+            'user_type'=>$request->user_type,
+            'avatar'=> $logoPath
+        ]);
 
         if ($userAttributes['user_type'] === 'employer') {
         $employerAttributes = $request->validate([
             'employer' => ['required'],
-            'logo' => ['required', File::types(['png', 'jpg', 'webp'])],
         ]);
 
 
-        $logoPath = $request->logo->store('logos');
 
         $user->employer()->create([
             'name' => $employerAttributes['employer'],
-            'logo' => $logoPath,
         ]);
     }
 
-        // $user->employer()->create([
-        //     'name' => $employerAttributes['employer'],
-        //     'logo' => $logoPath,
-        // ]);
-
         Auth::login($user);
+
+        if($user->user_type=='employer'){
+            return redirect('/dashboard');
+        }
+
+        if($user->user_type=='employee'){
+            return redirect('/');
+        }
+
 
         return redirect('/');
     }

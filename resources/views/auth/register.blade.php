@@ -12,11 +12,11 @@
 
         @if (request()->input('type') === 'employer')
             <x-forms.input label="Employer Name" name="employer" />
-            <x-forms.input label="Employer Logo" name="logo" type="file"/>
+            <x-forms.input label="Employer Avatar" name="avatar" type="file"/>
         @endif
 
         @if (request()->input('type') === 'employee')
-            <x-forms.input label="Resume" name="resume" type="file" />
+            <x-forms.input label="Employee Avatar" name="avatar" type="file"/>
         @endif
 
         <x-forms.button>Create Account</x-forms.button>
@@ -24,7 +24,7 @@
 
     <p class="mt-4 text-center text-sm text-gray-600">
         Already have an account?
-        <a href="/login" class="text-blue-600 hover:underline">Log in</a>
+        <a href="/login?type={{ request()->input('type') }}" class="text-blue-600 hover:underline">Log in</a>
     </p>
-    
+
 </x-layout>

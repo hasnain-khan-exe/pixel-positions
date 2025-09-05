@@ -2,7 +2,7 @@
 
 <x-panel class="flex flex-col text-center self-start min-h-[375px]">
     <div class="flex items-center gap-2 w-full">
-        <x-employer-logo :employer="$job->employer" :width="50" :employer="$job->employer" />
+        <x-avatar :employer="$job->employer" :width="50" />
         <div class="self-center text-sm">{{ $job->employer->name }}</div>
     </div>
 
@@ -15,7 +15,7 @@
         <p class="text-sm mt-2">{{$job->schedule}} - {{ $job->salary }}</p>
         <p class="text-sm">Published: {{ date('d-m-Y', strtotime($job->created_at)) }}</p>
         <p class="text-sm pb-2 border-b border-white/10">
-            Last Date: 
+            Last Date:
             <span class="text-blue-200">{{ date('d-m-Y', strtotime($job->expired_at)) }}</span>
         </p>
         {{-- <p class="text-sm pb-2 border-b border-white/10">
@@ -40,7 +40,7 @@
     </div>
     <x-forms.form method="POST" action="" class="w-full mt-auto">
         @csrf
-        
+
         <div class="flex mt-4 justify-end">
             @csrf
             <x-forms.button class="cursor-pointer">Apply</x-forms.button>

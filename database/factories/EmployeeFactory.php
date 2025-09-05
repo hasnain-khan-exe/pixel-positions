@@ -6,9 +6,9 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Employer>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Employee>
  */
-class EmployerFactory extends Factory
+class EmployeeFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,7 +18,8 @@ class EmployerFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' =>   fake()->company(),
+            'qualification'=>fake()->randomElement(['Bachelor', 'Master', 'MPhil', 'PhD']),
+            'experience'=>fake()->randomNumber(15) . " Years",
             'user_id' => User::factory(),
         ];
     }

@@ -20,6 +20,12 @@ class Job extends Model
         return $this->belongsToMany(Tag::class);
     }
 
+    public function employees()
+    {
+        return $this->belongsToMany(Employee::class, table:'applications');
+    }
+
+
     public function tag(string $name): void
     {
         $tag = Tag::firstOrCreate(['name' => $name]);

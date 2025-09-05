@@ -22,6 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'user_type',
+        'avatar'
     ];
 
     /**
@@ -34,17 +35,6 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function isEmployer()
-    {
-        return $this->user_type === 'employer';
-    }
-
-    public function isEmployee()
-    {
-        return $this->user_type === 'employee';
-    }
-
-    
 
     /**
      * Get the attributes that should be cast.
@@ -62,4 +52,10 @@ class User extends Authenticatable
     function employer(){
         return $this->hasOne(Employer::class);
     }
+
+     function employee(){
+        return $this->hasOne(Employee::class);
+    }
+
+
 }
